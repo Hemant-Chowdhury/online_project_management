@@ -1,22 +1,41 @@
-<nav role="navigation" class="navbar navbar-default">
+<div class="head">
+		<div class="home">
+			<a href="home.html" style="color: black; text-decoration-line: none;"><font
+				size="5" style="padding: 10px;">Home</font></a>
+		</div>
 
-	<div class="navbar">
-		<a href="/home">Home</a>
-		<div class="navbar-right">
-			<div class="dropdown">
-				<button class="dropbtn">
-					Notification <i class="fa fa-caret-down"></i>
-				</button>
-				<div class="dropdown-content">
-					<a href="#">Link 1</a> <a href="#">Link 2</a> <a href="#">Link
-						3</a>
+
+		<div class="dropdown"
+			style="float: right; margin-top: 10px; margin-right: 50px;">
+			<button type="button" class="btn btn-primary dropdown-toggle"
+				data-toggle="dropdown">
+				<span class="glyphicon glyphicon-user"></span>
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Link 1</a> <a
+					class="dropdown-item" href="#">Link 2</a> <a class="dropdown-item"
+					href="#">Link 3</a>
+			</div>
+		</div>
+		<div class="dropdown"
+			style="float: right; margin-top: 10px; margin-right: 20px;">
+			<button type="button" class="btn btn-primary dropdown-toggle"
+				data-toggle="dropdown">
+				<span class="glyphicon glyphicon-bell"></span>
+			</button>
+			<div class="dropdown-menu">
+				<div class="panel-heading">Notifications</div>
+				<div class="panel-body">
+					<ul>
+						<li class="dropdown-item">First item</li>
+						<li class="dropdown-item">Second item</li>
+						<li class="dropdown-item">Third item</li>
+					</ul>
 				</div>
 			</div>
-			<a href="/logout">Logout</a>
 		</div>
-	</div>
 
-</nav>
+	</div>
 
 
 

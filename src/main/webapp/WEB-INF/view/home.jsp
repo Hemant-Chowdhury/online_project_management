@@ -1,5 +1,5 @@
 <%@ include file="common/header.jsp"%>
-
+<%@ include file="common/nav.jsp"%>
 
 <body style="background-color: #bdbdbd;">
 	
@@ -22,7 +22,7 @@
 			style="width: 100%; height: 1px; background-color: black; float: left; display: block;">
 		<div style="width: 502px; float: left;"></div>
 		<div class="card" style="width: 400px; float: left; margin-top: 10px;">
-			<img class="card-img-top" src="${pageContext.request.contextPath}/resources/css/img_avatar1.png" alt="Card image">
+			<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/img_avatar1.png" alt="Card image">
 			<div class="card-body">
 				<h4 class="card-title">John Doe</h4>
 				<p class="card-text">Some example text.</p>
