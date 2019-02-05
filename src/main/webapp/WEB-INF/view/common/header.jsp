@@ -1,83 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css">
 <title>${title}</title>
-<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
-	    		rel="stylesheet">
-	    		
-<style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
 
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-.dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
-.navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-</style>
-	    		
 </head>
 <body>
+	<div class="head">
+		<div class="home">
+			<a href="home.html" style="color: black; text-decoration-line: none;"><font
+				size="5" style="padding: 10px;">Home</font></a>
+		</div>
 
+
+		<div class="dropdown"
+			style="float: right; margin-top: 10px; margin-right: 50px;">
+			<button type="button" class="btn btn-primary dropdown-toggle"
+				data-toggle="dropdown">
+				<span class="glyphicon glyphicon-user"></span>
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Link 1</a> <a
+					class="dropdown-item" href="#">Link 2</a> <a class="dropdown-item"
+					href="#">Link 3</a>
+			</div>
+		</div>
+		<div class="dropdown"
+			style="float: right; margin-top: 10px; margin-right: 20px;">
+			<button type="button" class="btn btn-primary dropdown-toggle"
+				data-toggle="dropdown">
+				<span class="glyphicon glyphicon-bell"></span>
+			</button>
+			<div class="dropdown-menu">
+				<div class="panel-heading">Notifications</div>
+				<div class="panel-body">
+					<ul>
+						<li class="dropdown-item">First item</li>
+						<li class="dropdown-item">Second item</li>
+						<li class="dropdown-item">Third item</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
