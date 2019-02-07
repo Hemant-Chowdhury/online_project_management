@@ -12,9 +12,8 @@
 				<span class="glyphicon glyphicon-user"></span>
 			</button>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">Link 1</a> <a
-					class="dropdown-item" href="#">Link 2</a> <a class="dropdown-item"
-					href="#">Link 3</a>
+				<a class="dropdown-item" href="/profile">View Profile</a>
+				 <a class="dropdown-item" href="/logout">Logout</a> 
 			</div>
 		</div>
 		<div class="dropdown"

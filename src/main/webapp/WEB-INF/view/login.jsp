@@ -1,6 +1,6 @@
 <%@ include file="common/header.jsp"%>
 <div class="container-fluid"
-	style="background-image: url('Elegant_Background-18.jpg'); height: 750px;">
+	style="height: 750px;">
 
 
 	<div class="panel panel-default"

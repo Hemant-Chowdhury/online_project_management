@@ -1,0 +1,86 @@
+package com.opm.user;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.opm.html.Methods;
+import com.opm.userDatabase.User;
+import com.opm.userDatabase.UserDAOJDBCImpl;
+
+@Controller
+@SessionAttributes("username")
+public class UserController {
+
+	@Autowired
+	private UserDAOJDBCImpl userJDBC;
+	
+	@RequestMapping(value="/home")
+	public String homePage(ModelMap model)
+	{
+		
+		model.addAttribute("title","Home");
+		return "home";
+	}
+	
+	@RequestMapping(value="/profile")
+	public String profilePage(ModelMap model)
+	{
+		String username = (String) model.get("username");
+		User user = userJDBC.gerUser(username);
+		model.addAttribute("user", user);
+		model.addAttribute("title","Profile");
+		return "profile";
+	}
+	
+	@RequestMapping(value="/uploadImage")
+	public String uploadImage(ModelMap model,HttpServletRequest request, HttpServletResponse response) 
+	{
+		String message=(String) request.getAttribute("message");
+		String username = (String) model.get("username");
+		System.out.println(message);
+		if(message.contains("success"))
+		{
+			userJDBC.updateImage(username,"/resources/images/"+username+".png");
+		}
+		else
+		{
+			userJDBC.updateImage(username,"/resources/images/default.png");
+		}
+		return profilePage(model);
+	}
+	
+	
+	@RequestMapping(value="/updateProfile")
+	public String updateProfile(ModelMap model,@Valid User user,BindingResult result){
+		if(result.hasErrors())
+		{
+			return "redirect:/profile";
+		}
+		userJDBC.updateProfile((String)model.get("username"), user.getName(), user.getEmail(), user.getCompany());
+		model.addAttribute("profileMessage",Methods.successMessage("Profile Details updated"));
+		return profilePage(model);
+	}
+	
+	
+	@RequestMapping(value="/updatePassword")
+	public String updatePassword(ModelMap model,@RequestParam String newPassword,@RequestParam String oldPassword) {
+		String message = userJDBC.updatePassword((String)model.get("username"), oldPassword, newPassword);
+		if(message.contains("failed"))
+			model.addAttribute("passwordMessage",Methods.errorMessage(message));
+		else
+			model.addAttribute("passwordMessage",Methods.successMessage(message));
+		return profilePage(model);
+	}
+}

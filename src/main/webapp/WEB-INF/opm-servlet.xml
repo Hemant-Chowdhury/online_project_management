@@ -29,9 +29,15 @@
 		<property name="password" value="" />
 	</bean>
 
+	<!-- Definition for LoginDAOJDBCImpl bean (JDBC Implementation Class) -->
+	<bean id="LoginDAOJDBCImpl"
+		class="com.opm.userDatabase.LoginDAOJDBCImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 	<!-- Definition for UserDAOJDBCImpl bean (JDBC Implementation Class) -->
-	<bean id="LoginDataDAOJDBCImpl"
-		class="com.opm.loginDatabase.LoginDataDAOJDBCImpl">
+	<bean id="UserDAOJDBCImpl"
+		class="com.opm.userDatabase.UserDAOJDBCImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 

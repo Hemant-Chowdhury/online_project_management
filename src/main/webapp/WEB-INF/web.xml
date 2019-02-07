@@ -24,6 +24,15 @@
 	        <servlet-name>dispatcher</servlet-name>
 	        <url-pattern>/</url-pattern>
 	    </servlet-mapping>
+	    
+	    <servlet>
+        	<servlet-name>ImageUploadHandler</servlet-name>
+        	<servlet-class>com.opm.fileUpload.ImageUploadHandler</servlet-class>
+    	</servlet>
+    	<servlet-mapping>
+        	<servlet-name>ImageUploadHandler</servlet-name>
+        	<url-pattern>/upload-image</url-pattern>
+    	</servlet-mapping>
 	  
 	  <!-- <filter>
 	    		<filter-name>springSecurityFilterChain</filter-name>
