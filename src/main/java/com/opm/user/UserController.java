@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.opm.database.User;
 import com.opm.html.Methods;
-import com.opm.userDatabase.User;
-import com.opm.userDatabase.UserDAOJDBCImpl;
+import com.opm.service.UserDAOJDBCImpl;
 
 @Controller
 @SessionAttributes("username")

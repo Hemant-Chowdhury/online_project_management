@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <!-- opm-servlet -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -28,19 +28,21 @@
 		<property name="username" value="root" />
 		<property name="password" value="" />
 	</bean>
-
+	
+	
 	<!-- Definition for LoginDAOJDBCImpl bean (JDBC Implementation Class) -->
 	<bean id="LoginDAOJDBCImpl"
-		class="com.opm.userDatabase.LoginDAOJDBCImpl">
+		class="com.opm.service.LoginDAOJDBCImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
 	<!-- Definition for UserDAOJDBCImpl bean (JDBC Implementation Class) -->
 	<bean id="UserDAOJDBCImpl"
-		class="com.opm.userDatabase.UserDAOJDBCImpl">
+		class="com.opm.service.UserDAOJDBCImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
+	
+	
 	<mvc:resources mapping="/resources/**"
 		location="/resources/" />
 	<mvc:resources mapping="/webjars/**" location="/webjars/" />
