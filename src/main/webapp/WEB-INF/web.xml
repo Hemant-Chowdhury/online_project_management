@@ -13,9 +13,11 @@
 	        <servlet-class>
 	            org.springframework.web.servlet.DispatcherServlet
 	        </servlet-class>
-	        <init-param>
+	         <init-param>
 	            <param-name>contextConfigLocation</param-name>
-	            <param-value>/WEB-INF/opm-servlet.xml</param-value>
+	            <param-value>
+	            /WEB-INF/opm-servlet.xml
+	            </param-value>
 	        </init-param>
 	        <load-on-startup>1</load-on-startup>
 	    </servlet>
@@ -24,6 +26,16 @@
 	        <servlet-name>dispatcher</servlet-name>
 	        <url-pattern>/</url-pattern>
 	    </servlet-mapping>
+	        
+	<!-- <listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/opm-servlet.xml
+		</param-value>
+	</context-param>-->
 	    
 	    <servlet>
         	<servlet-name>ImageUploadHandler</servlet-name>
@@ -31,10 +43,10 @@
     	</servlet>
     	<servlet-mapping>
         	<servlet-name>ImageUploadHandler</servlet-name>
-        	<url-pattern>/upload-image</url-pattern>
+        	<url-pattern>/profile/upload-image</url-pattern>
     	</servlet-mapping>
 	  
-	  <!-- <filter>
+	  <filter>
 	    		<filter-name>springSecurityFilterChain</filter-name>
 	    		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	   </filter>
@@ -44,5 +56,4 @@
 	    		<url-pattern>/*</url-pattern>
 	   </filter-mapping>
 
-	    -->
 </web-app>

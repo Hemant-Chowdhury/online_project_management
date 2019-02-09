@@ -1,10 +1,11 @@
 <%@ include file="common/header.jsp"%>
 <%@ include file="common/nav.jsp"%>
 <%@ include file="common/userNav.jsp"%>
-
+<title>Profile of ${username}</title>
 <div
 	style="width: 80%; float: left; padding: 10px; height: 100%; background-color: white;">
 	<div style="width: 100%; float: left;">
+	
 		<h1 class="heading">Profile</h1>
 			
 	</div>
@@ -14,7 +15,7 @@
 		<div class="card" style="width: 250px; margin-top: 10px;">
 			<img class="card-img-top" src="${pageContext.request.contextPath}${user.image}" alt="Card image">
 			<div class="card-body">
-				<form action="upload-image?username=${username}" method="post" enctype="multipart/form-data">
+				<form action="profile/upload-image?username=${username}" method="post" enctype="multipart/form-data">
 					<h4>Select Image to Upload:</h4>
 					<input type="file" name="fileToUpload" id="fileToUpload"
 						style="margin-top: 10px;"><br> <input type="submit"
@@ -29,8 +30,8 @@
 	<div class="panel panel-default"
 		style="background-color: rgb(255, 255, 255); border-radius: 8px; position: relative; width: 40%; margin: auto; min-height: initial; float: left; box-shadow: rgba(0, 0, 0, 0.45) 0px 2px 10px; padding: 30px; padding-top: 20px; margin: 50px; margin-top: 10px; height: 60%">
 		<h4>Profile Details:</h4>
-		${profileMessage}
-		<form:form action="/updateProfile" method="post" commandName="user">
+		
+		<form:form action="/profile/updateProfile" method="post" commandName="user">
 			<div class="form-group">
 				<label for="username">Username:</label> <form:input path="username" type="text"
 					class="form-control" disabled="true"/>
@@ -59,8 +60,8 @@
 	<div class="panel panel-default"
 		style="background-color: rgb(255, 255, 255); border-radius: 8px; position: relative; width: 400px; margin: auto; min-height: initial; box-shadow: rgba(0, 0, 0, 0.45) 0px 2px 10px; padding: 30px; float: left; padding-top: 20px; margin: 30px; margin-top: 10px; height: 60%;">
 		<h4>Update Password:</h4>
-		${passwordMessage}
-		<form action="/updatePassword" method="post">
+		
+		<form action="/profile/updatePassword" method="post">
 		
 			<div class="form-group">
 				<label for="o_password">Old Password:</label> <input name="oldPassword" type="password"
@@ -80,6 +81,23 @@
 
 </div>
 
+		
+		<%
+		
+	    String error = (String) request.getAttribute("errorMessage");
+	    if (error != null && error.equals("true"))
+	    {
+	        out.println("<script>window.alert(error)</script>");
+	    }
+	    
+	    String success = (String) request.getAttribute("successMessage");
+	   
+	    if (success != null && success.equals("true"))
+	    {
+	        out.println("<script>window.alert(success)</script>");
+	    }
+	     
+		%>
 
 <%@ include file="common/footer.jsp"%>
 

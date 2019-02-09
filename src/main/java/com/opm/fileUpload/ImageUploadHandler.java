@@ -25,6 +25,7 @@ public class ImageUploadHandler extends HttpServlet {
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+		System.out.println("Ya i was called");
         //process only if its multipart content
         if(ServletFileUpload.isMultipartContent(request)){
             try {
@@ -48,8 +49,8 @@ public class ImageUploadHandler extends HttpServlet {
             request.setAttribute("message",
                                  "Sorry this Servlet only handles file upload request");
         }
-     
-        request.getRequestDispatcher("/uploadImage").forward(request, response);
+        System.out.println("Image uploaded");
+        request.getRequestDispatcher("/profile/uploadImage").forward(request, response);
       
     }
    

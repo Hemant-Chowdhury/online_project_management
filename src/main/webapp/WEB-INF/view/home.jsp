@@ -1,6 +1,7 @@
 <%@ include file="common/header.jsp"%>
 <%@ include file="common/nav.jsp"%>
 <%@ include file="common/userNav.jsp" %>
+<title>Dashboard</title>
 	<div
 		style="width: 80%; float: left; padding: 10px; height: 800px; background-color: white;">
 		<div style="width: 100%; float: left;">

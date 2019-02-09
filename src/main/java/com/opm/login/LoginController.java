@@ -1,16 +1,18 @@
 package com.opm.login;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.opm.database.User;
@@ -19,60 +21,44 @@ import com.opm.service.LoginDAOJDBCImpl;
 
 
 @Controller
-@SessionAttributes("username")
 public class LoginController {
-	
+
 	@Autowired
 	private LoginDAOJDBCImpl userJDBC;
-	
+
 	@RequestMapping(value="/",method=RequestMethod.GET)
-	public String roottPage(ModelMap model,SessionStatus session) {
-		if(session.isComplete())
-		{
-			return "home";
-		}
-		return "login";
+	public String homePage(ModelMap model,SessionStatus session) {
+		return "redirect:/home";
 	}
 	
-	@RequestMapping(value="/{type}",method=RequestMethod.GET)
-	public String defaultPage(ModelMap model,SessionStatus session,@PathVariable String type) {
-		if(session.isComplete())
-		{
-			return type;
-		}
-		return "login";	
+	@RequestMapping(value="/home")
+	public String homePage(ModelMap model,HttpSession session,Principal principal)
+	{
+		session.setAttribute("username", principal.getName());
+		System.out.println("In home page"+ principal.getName());
+		return "home";
 	}
-	
+
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String loginPage(ModelMap model)
 	{
-		model.addAttribute("title","Login");
 		return "login";
 	}
-	
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String loginPage(@RequestParam String username,@RequestParam String password,ModelMap model)
+
+	@RequestMapping("/error")
+	public String error(ModelMap model)
 	{
-		if(userJDBC.validateUser(username,password))
-		{
-			System.out.println("User validated");
-			model.addAttribute("username", username);
-			model.addAttribute("title", "Home");
-			return "home";
-		}
-		model.addAttribute("message",Methods.errorMessage("Invalid Credentials"));
-		
-		return loginPage(model);
+		model.addAttribute("error", "true");
+		return "login";
 	}
-	
+
 	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String registerPage(ModelMap model)
 	{
-		model.addAttribute("title","Register");
 		model.addAttribute("user",new User());
 		return "register";
 	}
-	
+
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public String registerPage(ModelMap model,@Valid User user,BindingResult result)
 	{
@@ -91,4 +77,15 @@ public class LoginController {
 		model.addAttribute("message",Methods.successMessage("Registration Completed"));
 		return loginPage(model);
 	}
+	
+	@RequestMapping(value="/logout")
+    public String logout(ModelMap model,HttpSession session)
+    {
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        authentication.setAuthenticated(false);
+        session.invalidate();
+        model.addAttribute("logout", "true");
+        return "login";
+    }
 }

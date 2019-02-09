@@ -1,4 +1,5 @@
 <%@ include file="common/header.jsp"%>
+<title>Please Login</title>
 <div class="container-fluid"
 	style="height: 750px;">
 
@@ -7,8 +8,31 @@
 		style="background-color: rgb(255, 255, 255); border-radius: 8px; position: relative; text-align: center; width: 440px; margin: auto; min-height: initial; box-shadow: rgba(0, 0, 0, 0.45) 0px 2px 10px; padding: 55px; padding-top: 20px; margin-top: 125px;">
 		<h2 style="text-align: center;">LOGIN</h2>
 		<hr style="background-color: gray; width: 100%; height: 1px;">
-		${message}
-
+				
+				
+		<div>
+			${error}
+			${logout}	
+		<%
+	    String error = (String) request.getAttribute("error");
+	    if (error != null && error.equals("true"))
+	    {
+	        out.println("<h4 style=\"color:red\">Invalid login credentials. Please try again!!</h4>");
+	    }
+	    
+	    String logout = (String) request.getAttribute("logout");
+	   
+	    if (logout != null && logout.equals("true"))
+	    {
+	        out.println("<h4 style=\"color:green\">You have logged out successfully!!</h4>");
+	    }
+		%>
+		
+		<div>		
+				
+				
+				
+				
 		<form action="/login" method="post">
 			<center>
 				<div class="form-group" style="margin-top: 40px;">

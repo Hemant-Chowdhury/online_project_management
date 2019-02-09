@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -20,24 +22,28 @@ import com.opm.html.Methods;
 import com.opm.service.UserDAOJDBCImpl;
 
 @Controller
-@SessionAttributes("username")
+@RequestMapping("/profile")
 public class UserController {
-
+	
 	@Autowired
 	private UserDAOJDBCImpl userJDBC;
 	
-	@RequestMapping(value="/home")
-	public String homePage(ModelMap model)
-	{
-		
-		model.addAttribute("title","Home");
-		return "home";
+	private String getLoggedInUserName() {
+		Object principal = SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails)
+			return ((UserDetails) principal).getUsername();
+
+		return principal.toString();
 	}
 	
-	@RequestMapping(value="/profile")
-	public String profilePage(ModelMap model)
+	
+	@RequestMapping(value="")
+	public String profilePage(ModelMap model,@RequestParam(required=false) String message)
 	{
-		String username = (String) model.get("username");
+		String username = getLoggedInUserName();
+		System.out.println(username);
 		User user = userJDBC.gerUser(username);
 		model.addAttribute("user", user);
 		model.addAttribute("title","Profile");
@@ -48,7 +54,7 @@ public class UserController {
 	public String uploadImage(ModelMap model,HttpServletRequest request, HttpServletResponse response) 
 	{
 		String message=(String) request.getAttribute("message");
-		String username = (String) model.get("username");
+		String username = getLoggedInUserName();
 		System.out.println(message);
 		if(message.contains("success"))
 		{
@@ -58,7 +64,7 @@ public class UserController {
 		{
 			userJDBC.updateImage(username,"/resources/images/default.png");
 		}
-		return profilePage(model);
+		return "redirect:/profile";
 	}
 	
 	
@@ -68,19 +74,19 @@ public class UserController {
 		{
 			return "redirect:/profile";
 		}
-		userJDBC.updateProfile((String)model.get("username"), user.getName(), user.getEmail(), user.getCompany());
-		model.addAttribute("profileMessage",Methods.successMessage("Profile Details updated"));
-		return profilePage(model);
+		userJDBC.updateProfile(getLoggedInUserName(), user.getName(), user.getEmail(), user.getCompany());
+		model.addAttribute("successMessage","Profile Details updated");
+		return "redirect:/profile";
 	}
 	
 	
 	@RequestMapping(value="/updatePassword")
 	public String updatePassword(ModelMap model,@RequestParam String newPassword,@RequestParam String oldPassword) {
-		String message = userJDBC.updatePassword((String)model.get("username"), oldPassword, newPassword);
+		String message = userJDBC.updatePassword(getLoggedInUserName(), oldPassword, newPassword);
 		if(message.contains("failed"))
-			model.addAttribute("passwordMessage",Methods.errorMessage(message));
+			model.addAttribute("errorMessage",message);
 		else
-			model.addAttribute("passwordMessage",Methods.successMessage(message));
-		return profilePage(model);
+			model.addAttribute("successMessage",message);
+		return "redirect:/profile";
 	}
 }

@@ -1,5 +1,5 @@
 <%@ include file="common/header.jsp"%>
-
+<title>Registration</title>
 <div class="container-fluid"
 	style="background-image: url('Elegant_Background-18.jpg'); height: 750px;">
 
