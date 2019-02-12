@@ -12,7 +12,7 @@
 				<span class="glyphicon glyphicon-user"></span>
 			</button>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href="/profile">View Profile</a>
+				<a class="dropdown-item" href="/user/profile">View Profile</a>
 				 <a class="dropdown-item" href="/logout">Logout</a> 
 			</div>
 		</div>

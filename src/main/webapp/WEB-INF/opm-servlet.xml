@@ -41,7 +41,14 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
+	<!-- Definition for ProjectsDAOJDBCImpl bean (JDBC Implementation Class) -->
+	<bean id="ProjectsDAOJDBCImpl"
+		class="com.opm.service.ProjectsDAOJDBCImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	
+	<mvc:resources mapping="/user/**"
+		location="/resources/" />
 	<mvc:resources mapping="/resources/**"
 		location="/resources/" />
 	<mvc:resources mapping="/webjars/**" location="/webjars/" />

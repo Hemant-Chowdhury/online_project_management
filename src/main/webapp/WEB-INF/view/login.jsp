@@ -1,37 +1,50 @@
-<%@ include file="common/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head(title=~{::title},links=~{})">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+</head>
+
 <title>Please Login</title>
 <div class="container-fluid"
-	style="height: 750px;">
-
+	style="background-image: url(${pageContext.request.contextPath}/resources/images/background1.jpg) ; height: 750px;">
 
 	<div class="panel panel-default"
-		style="background-color: rgb(255, 255, 255); border-radius: 8px; position: relative; text-align: center; width: 440px; margin: auto; min-height: initial; box-shadow: rgba(0, 0, 0, 0.45) 0px 2px 10px; padding: 55px; padding-top: 20px; margin-top: 125px;">
+style="background-color: rgba(255, 255, 255, 0.76);border-radius: 8px;position: relative;text-align: center;width: 440px;margin: auto;min-height: initial;box-shadow: rgba(0, 0, 0, 0.45) 0px 2px 10px;padding: 55px;padding-top: 20px;margin-top: 125px;"/>		
 		<h2 style="text-align: center;">LOGIN</h2>
 		<hr style="background-color: gray; width: 100%; height: 1px;">
-				
-				
-		<div>
-			${error}
-			${logout}	
-		<%
-	    String error = (String) request.getAttribute("error");
-	    if (error != null && error.equals("true"))
-	    {
-	        out.println("<h4 style=\"color:red\">Invalid login credentials. Please try again!!</h4>");
-	    }
-	    
-	    String logout = (String) request.getAttribute("logout");
-	   
-	    if (logout != null && logout.equals("true"))
-	    {
-	        out.println("<h4 style=\"color:green\">You have logged out successfully!!</h4>");
-	    }
-		%>
 		
-		<div>		
-				
-				
-				
+		${message}
 				
 		<form action="/login" method="post">
 			<center>

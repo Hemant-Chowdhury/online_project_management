@@ -1,11 +1,14 @@
 package com.opm.login;
 
+import java.lang.reflect.Method;
 import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,20 +38,26 @@ public class LoginController {
 	public String homePage(ModelMap model,HttpSession session,Principal principal)
 	{
 		session.setAttribute("username", principal.getName());
-		System.out.println("In home page"+ principal.getName());
 		return "home";
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String loginPage(ModelMap model)
 	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+
+		    /* The user is logged in :) */
+		    return "redirect:/home";
+		}
 		return "login";
 	}
 
-	@RequestMapping("/error")
+	@RequestMapping(value="/login",params="error")
 	public String error(ModelMap model)
 	{
-		model.addAttribute("error", "true");
+		model.addAttribute("message", Methods.errorMessage("Invalid Credentials"));
 		return "login";
 	}
 
@@ -75,17 +84,17 @@ public class LoginController {
 			return registerPage(model);
 		}
 		model.addAttribute("message",Methods.successMessage("Registration Completed"));
-		return loginPage(model);
+		return "login";
 	}
 	
-	@RequestMapping(value="/logout")
+	@RequestMapping(value="/login",params="logout")
     public String logout(ModelMap model,HttpSession session)
     {
         Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         authentication.setAuthenticated(false);
         session.invalidate();
-        model.addAttribute("logout", "true");
+        model.addAttribute("message",Methods.successMessage( "You have been logged out"));
         return "login";
     }
 }

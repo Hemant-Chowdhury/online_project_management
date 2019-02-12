@@ -1,5 +1,5 @@
 package com.opm.service;
-import java.util.List;
+
 import javax.sql.DataSource;
 
 public interface LoginDAO {

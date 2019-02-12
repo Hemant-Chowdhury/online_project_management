@@ -43,7 +43,7 @@
     	</servlet>
     	<servlet-mapping>
         	<servlet-name>ImageUploadHandler</servlet-name>
-        	<url-pattern>/profile/upload-image</url-pattern>
+        	<url-pattern>/user/profile/upload-image</url-pattern>
     	</servlet-mapping>
 	  
 	  <filter>

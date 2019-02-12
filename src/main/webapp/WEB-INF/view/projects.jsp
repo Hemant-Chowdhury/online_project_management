@@ -14,28 +14,69 @@
 
 	<div class="panel-group" id="accordion"
 		style="float: left; width: 100%;">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapse2">Project Heading 1</a> <a href="#"><button
-							type="button" class="btn btn-danger"
-							style="float: right; line-height: 1.3;">Delete</button></a>
-				</h4>
+	
+	${project}
+	
+	<button type="submit" class="btn btn-primary"  style="border: 0px;
+    height: 36px;
+    display: inline-block;
+    border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+    padding: 0px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    margin: 10px;
+    vertical-align: middle;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    width: 10%;" onclick="document.getElementById('form').style.display='block'">Add</button>
+ 
+  <div  id="form" class="panel panel-default" style="  ;background-color: rgb(255, 255, 255); border-radius: 8px; position: relative; text-align: center; width: 440px; margin: auto; min-height: initial; box-shadow: rgba(0, 0, 0, 0.45) 0px 2px 10px; padding: 55px;padding-top: 20px;margin-top:25px; display: none;">
 
-			</div>
-			<div id="collapse2" class="panel-collapse collapse in">
-				<div class="panel-body">
-					<script ::after="display=none;"> </script>
-					project Details
-				</div>
-				<a href="project.html"><button type="button"
-						class="btn btn-info"
-						style="margin: 6px; margin-top: -3px; margin-left: 15px;">More
-						Info</button></a>
-			</div>
-		</div>
+  	<form action="#">
+    <center><div class="form-group" style="margin-top: 40px;">
+      <label for="email">Project Name:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" style="width: 60%;">
+    </div></center>
+    <center><div class="form-group" >
+      <label for="comment">Description:</label>
+  <textarea class="form-control" rows="5" id="comment" style="resize: none;"></textarea>
+    </div></center>
+    
+    <button type="submit" class="btn btn-default" style="border: 0px;
+    height: 36px;
+    display: inline-block;
+    border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+    padding: 0px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    margin-top: 10px;
+    vertical-align: middle;
+    text-align: center;
+    background-color: rgb(230, 0, 35);
+    color: rgb(255, 255, 255);
+    width: 60%;">Submit</button>
+
+   
+  </form>
+  </div>
 
 	</div>
 </div>
-</div>
+
+<%@ include file="common/footer.jsp"%>
+
+
+
+
+
+
+
+
