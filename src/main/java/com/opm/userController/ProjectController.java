@@ -1,6 +1,9 @@
 package com.opm.userController;
 
+import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,20 +11,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
+import com.opm.CustomSort.SortByTime;
 import com.opm.database.Project;
+import com.opm.database.ProjectChat;
+import com.opm.database.User;
+import com.opm.database.UserProject;
 import com.opm.html.Methods;
-import com.opm.service.ProjectsDAOJDBCImpl;
+import com.opm.service.ProjectDAOJDBCImpl;
 import com.opm.service.UserDAOJDBCImpl;
 
 @Controller
-@RequestMapping(value="/user/projects")
 public class ProjectController {
 	
+	
 	@Autowired
-	private ProjectsDAOJDBCImpl projectsJDBC;
+	private ProjectDAOJDBCImpl projectJDBC;
+	@Autowired
+	private UserDAOJDBCImpl userJDBC;
 	
 	private String getLoggedInUserName() {
 		Object principal = SecurityContextHolder.getContext()
@@ -33,30 +43,72 @@ public class ProjectController {
 		return principal.toString();
 	}
 	
-	private String projectView(List<Project> project) {
+	private int getSessionProjectId()
+	{
+		int projectId=(int)RequestContextHolder.currentRequestAttributes().getAttribute("projectId", RequestAttributes.SCOPE_SESSION);
+		return projectId;
+	}
+	
+	private String getChatList(List<ProjectChat> chat)
+	{
 		String view="";
-		int i=0;
-		for(Project p : project) {
-			System.out.println(p.getProjectName()+" "+p.getTimestamp());
-			view+=Methods.getProjectPanel(p,i);
-			i++;
+		for(ProjectChat pc:chat) {
+			if(pc.getUsername().contains(getLoggedInUserName()))
+				view+=Methods.getChat(pc, userJDBC.getUser(pc.getUsername()), 0);
+			else
+				view+=Methods.getChat(pc, userJDBC.getUser(pc.getUsername()), 1);
 		}
 		return view;
 	}
 	
-	@RequestMapping(value="")
-	private String projects(ModelMap model) {
-		
-		List<Project> project = projectsJDBC.getProjectsOwned(getLoggedInUserName());
-		String view = projectView(project);
-		model.addAttribute("project",view);
-		return "projects";
+	private String getParticipantList(List<User> user)
+	{
+		String view="<ul>";
+		for(User u: user) {
+			view+=Methods.listParticipant(u);
+		}
+		view+="</ul>";
+		return view;
 	}
 	
-	@RequestMapping(value="/delete")
-	private String deleteProject(ModelMap model,@RequestParam() int projectId) {
+	@RequestMapping(value="/project")
+	private String projectPage(ModelMap model)
+	{
+		List<User> participants = projectJDBC.getParticipants(getSessionProjectId());
+		String participant = getParticipantList(participants);
+		model.addAttribute("listParticipant",participant);
 		
-		projectsJDBC.deleteProject(projectId);
-		return "redirect:/user/projects";
+		Project project = projectJDBC.getProject(getSessionProjectId());
+		model.addAttribute("project",project);
+		
+		List<ProjectChat> projectChat = projectJDBC.getChat(getSessionProjectId());
+		projectChat.sort(new SortByTime());
+		String chat = getChatList(projectChat);
+		model.addAttribute("listChat", chat);
+		return "project";
 	}
+	
+	@RequestMapping(value="/project/addParticipant")
+	private String addParticipant(ModelMap model,HttpSession session,@RequestParam(value="username") String username, @RequestParam(value="type") String type ) {
+		userJDBC.getUser(username);
+		UserProject up = new UserProject(username,(int)session.getAttribute("projectId"),type);
+		projectJDBC.addParticipant(up);
+		return "redirect:/project?projectId="+session.getAttribute("projectId");
+	}
+	
+	@RequestMapping(value="/project/deleteParticipant")
+	private String deleteParticipant(ModelMap model,@RequestParam(value="username") String username) {
+		projectJDBC.removeParticipant(username, getSessionProjectId());
+		return "redirect:/project";
+	}
+	
+	@RequestMapping(value="/project/sendMessage")
+	private String sendMessage(ModelMap model,@RequestParam(value="message") String message) {
+		ProjectChat pc = new ProjectChat(getSessionProjectId(),getLoggedInUserName(),message);
+		System.out.println("okk okk");
+		projectJDBC.sendMessage(pc);
+		return "redirect:/project";
+	}
+	
+	
 }

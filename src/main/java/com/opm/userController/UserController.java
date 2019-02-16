@@ -1,6 +1,7 @@
 package com.opm.userController;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,7 @@ public class UserController {
 	public String profilePage(ModelMap model)
 	{
 		String username = getLoggedInUserName();
-		User user = userJDBC.gerUser(username);
+		User user = userJDBC.getUser(username);
 		model.addAttribute("user", user);
 		return "profile";
 	}

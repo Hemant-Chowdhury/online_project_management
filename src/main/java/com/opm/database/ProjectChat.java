@@ -11,6 +11,15 @@ public class ProjectChat {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public ProjectChat(int projectId, String username, String message) {
+		super();
+		this.projectId = projectId;
+		this.username = username;
+		this.message = message;
+	}
+	
+	
 	public int getProjectId() {
 		return projectId;
 	}
@@ -35,11 +44,5 @@ public class ProjectChat {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public ProjectChat(int projectId, String username, Timestamp timestamp, String message) {
-		super();
-		this.projectId = projectId;
-		this.username = username;
-		this.timestamp = timestamp;
-		this.message = message;
-	}
+	
 }

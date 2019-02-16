@@ -20,7 +20,7 @@ public interface ProjectsDAO {
 	  public List<Project> getProjectsManaged(String username);
 	  
 	  //projects developed by the user
-	  public List<Project> getProjectDeveloped(String username);
+	  public List<Project> getProjectsDeveloped(String username);
 	  
 	  // delete project
 	  public void deleteProject(int projectId);

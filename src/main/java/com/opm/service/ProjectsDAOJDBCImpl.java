@@ -1,5 +1,6 @@
 package com.opm.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -25,7 +26,7 @@ public class ProjectsDAOJDBCImpl implements ProjectsDAO {
 	
 	@Override
 	public void addProject(Project project) {
-		String sql="insert into projects (projectname,owner,description,) value (?, ?, ?)";
+		String sql="insert into project (projectname,owner,description) value (?, ?, ?)";
 		jdbcTemplate.update(sql, project.getProjectName(),project.getOwner(),project.getDescription());
 	}
 
@@ -41,7 +42,7 @@ public class ProjectsDAOJDBCImpl implements ProjectsDAO {
 		String sql = "select * from userproject where username = ? and type=?";
 		List<UserProject> user = jdbcTemplate.query(sql,new Object[] {username,"Manager"},new UserProjectMapper());
 		sql = "select * from project where projectid = ?";
-		List<Project> project = null;
+		List<Project> project = new ArrayList<Project>();
 		for(UserProject up:user) {
 			project.add(jdbcTemplate.queryForObject(sql, new Object[]{up.getProjectId()}, new ProjectMapper()));
 		}
@@ -49,11 +50,11 @@ public class ProjectsDAOJDBCImpl implements ProjectsDAO {
 	}
 
 	@Override
-	public List<Project> getProjectDeveloped(String username) {
+	public List<Project> getProjectsDeveloped(String username) {
 		String sql = "select * from userproject where username = ? and type=?";
 		List<UserProject> user = jdbcTemplate.query(sql,new Object[] {username,"Developer"},new UserProjectMapper());
 		sql = "select * from project where projectid = ?";
-		List<Project> project = null;
+		List<Project> project = new ArrayList<Project>();
 		for(UserProject up:user) {
 			project.add(jdbcTemplate.queryForObject(sql, new Object[]{up.getProjectId()}, new ProjectMapper()));
 		}

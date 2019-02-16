@@ -2,6 +2,7 @@ package com.opm.login;
 
 import java.lang.reflect.Method;
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.opm.database.User;
 import com.opm.html.Methods;
 import com.opm.service.LoginDAOJDBCImpl;
+import com.opm.service.UserDAOJDBCImpl;
 
 
 @Controller
@@ -37,6 +39,8 @@ public class LoginController {
 	@RequestMapping(value="/home")
 	public String homePage(ModelMap model,HttpSession session,Principal principal)
 	{
+		
+		session.removeAttribute("projectId");
 		session.setAttribute("username", principal.getName());
 		return "home";
 	}

@@ -15,7 +15,7 @@ public interface UserDAO {
 	  public void updateProfile(String username, String name, String email, String company);
 	  
 	  // get user
-	  public User gerUser(String username);
+	  public User getUser(String username);
 	  
 	  // get all the users from the users table
 	  public List<User> listUsers();

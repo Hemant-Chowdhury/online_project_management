@@ -47,6 +47,24 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
+	<!-- Definition for ProjectDAOJDBCImpl bean (JDBC Implementation Class) -->
+	<bean id="ProjectDAOJDBCImpl"
+		class="com.opm.service.ProjectDAOJDBCImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- Definition for MilestoneDAOJDBCImpl bean (JDBC Implementation Class) -->
+	<bean id="MilestoneDAOJDBCImpl"
+		class="com.opm.service.MilestoneDAOJDBCImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- Definition for TasksDAOJDBCImpl bean (JDBC Implementation Class) -->
+	<bean id="TasksDAOJDBCImpl"
+		class="com.opm.service.TasksDAOJDBCImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 	<mvc:resources mapping="/user/**"
 		location="/resources/" />
 	<mvc:resources mapping="/resources/**"

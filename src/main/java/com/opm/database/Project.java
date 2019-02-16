@@ -1,6 +1,10 @@
 package com.opm.database;
 
 import java.sql.Timestamp;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.opm.jasonView.Views;
 
 public class Project {
 	private int projectId;
@@ -8,19 +12,19 @@ public class Project {
 	private String owner;
 	private String description;
 	private Timestamp timestamp;
+	
+	
 	public Project() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public Project(int projectId, String projectName, String owner, String description, Timestamp timestamp) {
+	public Project(int projectId, String projectName, String owner, String description) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.owner = owner;
 		this.description = description;
-		this.timestamp = timestamp;
+		this.timestamp.setTime(this.timestamp.getTime());
 	}
 
 

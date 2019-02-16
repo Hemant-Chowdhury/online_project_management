@@ -29,7 +29,7 @@ public class UserDAOJDBCImpl implements UserDAO {
 	}
 
 	@Override
-	public User gerUser(String username) {
+	public User getUser(String username) {
 		String sql = "select * from user where username = ?";
 		User user =jdbcTemplate.queryForObject(sql, new Object[]{username}, new UserMapper());
 		return user;
