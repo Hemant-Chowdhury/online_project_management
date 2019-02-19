@@ -96,11 +96,6 @@ public class ProjectsController {
 		session.setAttribute("projectId", projectId);
 		return "redirect:/project";
 	}
-	{
-		
-	}
 	
-
-
 }
 

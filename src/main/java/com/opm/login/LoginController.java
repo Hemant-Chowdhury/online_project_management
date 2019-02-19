@@ -31,20 +31,6 @@ public class LoginController {
 	@Autowired
 	private LoginDAOJDBCImpl userJDBC;
 
-	@RequestMapping(value="/",method=RequestMethod.GET)
-	public String homePage(ModelMap model,SessionStatus session) {
-		return "redirect:/home";
-	}
-	
-	@RequestMapping(value="/home")
-	public String homePage(ModelMap model,HttpSession session,Principal principal)
-	{
-		
-		session.removeAttribute("projectId");
-		session.setAttribute("username", principal.getName());
-		return "home";
-	}
-
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String loginPage(ModelMap model)
 	{

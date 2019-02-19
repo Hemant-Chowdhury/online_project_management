@@ -1,6 +1,6 @@
 <div class="head">
 		<div class="home">
-			<a href="home.html" style="color: black; text-decoration-line: none;"><font
+			<a href="home" style="color: black; text-decoration-line: none;"><font
 				size="5" style="padding: 10px;">Home</font></a>
 		</div>
 

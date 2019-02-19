@@ -243,7 +243,7 @@
 			<ul>
 				<c:forEach var="file" items="${files}">
 					<li class="list-group-item" style="margin: 2px; height: 35px;">${file.getFileName()}<a
-						href="#" style="float: right; padding: 0px; margin-top: 0px;"><button
+						href="/task/file?filename=${file.getFileName()}" style="float: right; padding: 0px; margin-top: 0px;"><button
 								type="button" class="btn btn-success">
 								<span class="glyphicon glyphicon-folder-open"
 									style="float: left;"></span>
@@ -255,7 +255,7 @@
 		<br>
 
 		<div class="card-body"">
-			<form action="task/upload-file" method="post"
+			<form action="task/upload-file?taskId=${task.getTaskId()}" method="post"
 				enctype="multipart/form-data">
 				<h5>Select File to Upload:</h5>
 				<hr class="hr"

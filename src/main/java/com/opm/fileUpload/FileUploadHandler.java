@@ -25,24 +25,29 @@ public class FileUploadHandler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String filename=null;
+       String filename=null, taskId=null;
         //process only if its multipart content
         if(ServletFileUpload.isMultipartContent(request)){
             try {
                 List<FileItem> multiparts = new ServletFileUpload(
                                          new DiskFileItemFactory()).parseRequest(request);
+               taskId = request.getParameter("taskId");
                
+              boolean isCreated =  new File(UPLOAD_DIRECTORY+File.separator+taskId).mkdir();
+              System.out.println(isCreated);
                 for(FileItem item : multiparts){
                     if(!item.isFormField()){
                         String name = new File(item.getName()).getName();
                         filename=name;
-                        item.write( new File(UPLOAD_DIRECTORY + File.separator + name));
+                        item.write( new File(UPLOAD_DIRECTORY+File.separator+taskId+ File.separator + name));
                     }
                 }
+                
             
                //File uploaded successfully
                request.setAttribute("message", "File Uploaded Successfully");
             } catch (Exception ex) {
+            	ex.printStackTrace();
                request.setAttribute("message", "File Upload Failed due to " + ex);
             }          
           

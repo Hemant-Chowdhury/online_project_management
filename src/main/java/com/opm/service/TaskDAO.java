@@ -58,4 +58,7 @@ public interface TaskDAO {
 	  //remove Dependency
 	  public void removeDependency(int parentTaskId, int childTaskId);
 	  
+	  //get Milestoneid
+	  public int getMilestoneId(int taskId);
+	  
 }

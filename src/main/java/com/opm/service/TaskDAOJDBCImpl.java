@@ -175,5 +175,12 @@ public class TaskDAOJDBCImpl implements TaskDAO {
 		String sql = "delete from taskinterdependency where parenttask = ? and childtask = ?";
 		jdbcTemplate.update(sql, parentTaskId,childTaskId);
 	}
+
+	@Override
+	public int getMilestoneId(int taskId) {
+		String sql = "select * from task where taskId = ?";
+		Task task = jdbcTemplate.queryForObject(sql, new Object[] {taskId}, new TaskMapper());
+		return task.getMilestoneId();
+	}
 }
 

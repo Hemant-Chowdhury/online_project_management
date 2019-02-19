@@ -1,6 +1,8 @@
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\userController\MilestoneController.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\service\TaskDAO.java
+C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\userController\HomeController.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\login\LoginController.java
+C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\service\HomeDAO.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\database\ProjectChat.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\database\TaskFeed.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\service\LoginDAO.java
@@ -42,6 +44,7 @@ C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\service\
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\jasonView\Views.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\database\Milestone.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\ajax\AjaxResponseBody.java
+C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\service\HomeDAOJDBCImpl.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\mapper\UserMapper.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\mapper\ProjectMapper.java
 C:\Users\HEMANT\Documents\OnlineProjectManagement\src\main\java\com\opm\userController\ReportController.java

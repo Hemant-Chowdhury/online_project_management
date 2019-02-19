@@ -1,6 +1,10 @@
 package com.opm.userController;
 
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestAttributes;
@@ -195,5 +200,32 @@ public class TaskController {
 		taskJDBC.removeDependency(parentTask, getSessionTaskId());
 		return "redirect:/task";
 	}
+	
+	@RequestMapping(value="/task/file", method=RequestMethod.GET)
+	private String showFile(ModelMap model,@RequestParam(value="filename") String filename) throws IOException {
+		String fileName = "C:\\Users\\HEMANT\\Documents\\OnlineProjectManagement\\src\\main\\webapp\\resources\\files\\"+getSessionTaskId()+"\\"+filename;
+	    java.io.File file = new java.io.File(fileName);
+	    FileReader fr = new FileReader(file); 
+	      char [] a = new char[200];
+	      fr.read(a);   // reads the content to the array
+	      fr.close();
+	      String content = String.valueOf(a);
+	      System.out.println(content);
+	      model.addAttribute("filename",filename);
+	      model.addAttribute("content",content);
+		return "file";
+	}
+	
+	@RequestMapping(value="/task/file", method=RequestMethod.POST)
+	private String editFile(ModelMap model,@RequestParam(value="filename") String filename, @RequestParam(value="content") String content) throws IOException {
+		String fileName = "C:\\Users\\HEMANT\\Documents\\OnlineProjectManagement\\src\\main\\webapp\\resources\\files\\"+getSessionTaskId()+"\\"+filename;
+	    java.io.File file = new java.io.File(fileName);
+	    FileWriter fw = new FileWriter(file); 
+	    fw.write(content);
+		return "redirect:/task";
+	}
+	
+	
+	
 
 }

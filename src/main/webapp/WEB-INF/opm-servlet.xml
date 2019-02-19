@@ -65,6 +65,12 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
+	<!-- Definition for HomeDAOJDBCImpl bean (JDBC Implementation Class) -->
+	<bean id="HomeDAOJDBCImpl"
+		class="com.opm.service.HomeDAOJDBCImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 	<mvc:resources mapping="/user/**"
 		location="/resources/" />
 	<mvc:resources mapping="/resources/**"
