@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +39,6 @@ public class MilestoneController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 	
-//	private String getLoggedInUserName() {
-//		Object principal = SecurityContextHolder.getContext()
-//				.getAuthentication().getPrincipal();
-//
-//		if (principal instanceof UserDetails)
-//			return ((UserDetails) principal).getUsername();
-//
-//		return principal.toString();
-//	}
 	
 	private int getSessionProjectId()
 	{
@@ -57,7 +49,6 @@ public class MilestoneController {
 	private String getMilestoneView(List<Milestone> milestone) {
 		String view="";
 		for(Milestone mile : milestone) {
-			System.out.println(mile.getMilestoneName()+" "+mile.getTimestamp());
 			List<Task> task = milestoneJDBC.getTasks(mile.getMilestoneId());
 			view+=Methods.getMilestone(mile, task);
 		}
@@ -70,6 +61,12 @@ public class MilestoneController {
 		String view = getMilestoneView(listMilestone);
 		model.addAttribute("view", view);
 		return "milestone";
+	}
+	
+	@RequestMapping(value="/milestone/task",params="taskId")
+	private String redirectingToTaskPage(ModelMap model,@RequestParam(value="taskId") int taskId,HttpSession session) {
+		session.setAttribute("taskId", taskId);
+		return "redirect:/task";
 	}
 	
 	@RequestMapping(value="/milestone/addMilestone")

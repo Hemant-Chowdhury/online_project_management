@@ -45,7 +45,17 @@
         	<servlet-name>ImageUploadHandler</servlet-name>
         	<url-pattern>/user/profile/upload-image</url-pattern>
     	</servlet-mapping>
-	  
+    	
+    	<servlet>
+        	<servlet-name>FileUploadHandler</servlet-name>
+        	<servlet-class>com.opm.fileUpload.FileUploadHandler</servlet-class>
+    	</servlet>
+    	<servlet-mapping>
+        	<servlet-name>FileUploadHandler</servlet-name>
+        	<url-pattern>/task/upload-file</url-pattern>
+    	</servlet-mapping>
+    	
+  
 	  <filter>
 	    		<filter-name>springSecurityFilterChain</filter-name>
 	    		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

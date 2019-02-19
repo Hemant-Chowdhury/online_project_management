@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
@@ -110,5 +111,13 @@ public class ProjectController {
 		return "redirect:/project";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/project/getChat")
+	private String getChat(ModelMap model) {
+		List<ProjectChat> projectChat = projectJDBC.getChat(getSessionProjectId());
+		projectChat.sort(new SortByTime());
+		String chat = getChatList(projectChat);
+		return chat;
+	}
 	
 }

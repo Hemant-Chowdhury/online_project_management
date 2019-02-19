@@ -3,6 +3,7 @@
 	<ul>
 		<li><a href="/project">Project</a></li>
 		<li><a href="/milestone">Milestones</a></li>
+		<li><a href="/task">Task</a></li>
 		<li><a href="/report">Reports</a></li>
 		<li><a href="/meet">Meetings</a></li>
 	</ul>

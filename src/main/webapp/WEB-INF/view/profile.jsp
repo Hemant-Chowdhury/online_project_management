@@ -19,9 +19,7 @@
 					<input type="file" name="fileToUpload" id="fileToUpload"
 						style="margin-top: 10px;"><br> <input type="submit"
 						value="Upload Image" name="submit" class="btn btn-success">
-					
 				</form>
-
 			</div>
 
 		</div>

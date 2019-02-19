@@ -59,9 +59,9 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-	<!-- Definition for TasksDAOJDBCImpl bean (JDBC Implementation Class) -->
-	<bean id="TasksDAOJDBCImpl"
-		class="com.opm.service.TasksDAOJDBCImpl">
+	<!-- Definition for TaskDAOJDBCImpl bean (JDBC Implementation Class) -->
+	<bean id="TaskDAOJDBCImpl"
+		class="com.opm.service.TaskDAOJDBCImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	

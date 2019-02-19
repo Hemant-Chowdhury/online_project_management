@@ -9,7 +9,7 @@
 <div
 	style="width: 90%; float: left; padding: 10px; height: 1400px; background-color: white; overflow-y: auto;">
 	<div style="width: 100%; float: left;">
-		<h1 class="heading" style="margin-right: 5px; width: 180px;">Milestone</h1>
+		<h1 class="heading" style="margin-right: 5px; width: 160px;">Milestone</h1>
 		<h1 class="heading" style="margin-right: 5px; width: 180px;">Date Created</h1>
 		<h1 class="heading" style="margin-right: 5px; width: 180px;">Start
 			Date</h1>

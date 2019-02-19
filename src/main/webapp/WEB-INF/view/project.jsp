@@ -76,8 +76,9 @@
 		style="width: 32%; float: left; padding: 10px; height: 500px; background-color: #ddd; margin: 5px; overflow-y: auto;">
 		<div style="width: 100%; float: left;">
 			<h4 class="heading" style="margin-left: 0px;">Forum</h4>
+			<div id="displayarea" name="displayarea">
 			
-			${listChat}
+			</div>
 		</div>
 		<hr class="hr"
 			style="width: 100%; height: 1px; margin: 0.5px; background-color: black; float: left; display: block;">
@@ -88,22 +89,41 @@
 
 
 	</div>
-	<form method="post" action="/project/sendMessage"
+	
+	
+	
+<script type="text/javascript">
+var url = '/project/getChat'
+ 
+$(document).ready(function() {
+ 
+$.ajaxSetup({ cache: false }); 
+ 
+setInterval(function() {$("#displayarea").load(url); }, 1000);
+ 
+});
+ 
+ 
+ 
+ 
+</script>
+	<form name="sendMessage" action="/project/sendMessage" method="post"
 		style="float: right; width: 32%; margin-right: 20px;">
 
 		<div class="input-group" style="margin-top: 3px;">
 
 			<textarea id="message" name="message" class="form-control" rows="0" placeholder = "Enter message"
 				style="border-radius: 10px; margin-top: 5px; margin-left: -7px; resize: none;"></textarea>
-			<button class="btn btn-success"
+			<button type="submit"  class="btn btn-success"
 				style="width: 12%; height: 30px; margin-top: 8px; margin-left: 4px; margin-right: 5px; padding: 2px;">
 				<span class="glyphicon glyphicon-send " style="margin: 2px;"></span>
 			</button>
 		</div>
 	</form>
 </div>
-</div>
-</div>
+
+
+
 
 
 

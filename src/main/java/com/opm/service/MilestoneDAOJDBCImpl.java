@@ -23,7 +23,7 @@ public class MilestoneDAOJDBCImpl implements MilestoneDAO {
 	}
 	@Override
 	public Milestone getMilestone(int milestoneId) {
-		String sql = "select * milestone where milestoneid = ?";
+		String sql = "select * from milestone where milestoneid = ?";
 		Milestone milestone = jdbcTemplate.queryForObject(sql, new Object[] {milestoneId}, new MilestoneMapper());
 		return milestone;
 	}
