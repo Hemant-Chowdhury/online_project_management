@@ -1,4 +1,5 @@
 package com.opm.service;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.sql.DataSource;
 
@@ -31,5 +32,11 @@ public interface UserDAO {
 	 
 	  //Updating image source
 	  public void updateImage(String username,String image);
+	  
+	  //get lastChecked
+	  public Timestamp getLastChecked(String username);
+	  
+	  //set LastChecked
+	  public void setLastChecked(String username, Timestamp lastChecked);
 
 }

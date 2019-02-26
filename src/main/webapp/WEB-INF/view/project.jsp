@@ -21,7 +21,18 @@
 		<hr class="hr"
 			style="width: 100%; height: 1px; margin: 0.5px; background-color: black; float: left; display: block;">
 		<div style="height: auto; width: 100%; padding: 0px; float: left;">
-			${listParticipant}
+			<ul>
+				<c:forEach var="user" items="${participants}">
+					<li class="list-group-item" style="margin: 2px; height: auto;">
+						<img src="${pageContext.request.contextPath}${user.getImage()}"
+						alt="default" style="width: 10%; height: 30px; margin-top: 4px;">
+						${user.getName()} (${user.getCompany()}) <a
+						href="/project/removeParticipant?username=${user.getUsername()}"
+						style="float: right; padding: 0px;"><button type="button"
+								class="btn btn-danger">Remove</button></a>
+					</li>
+				</c:forEach>
+			</ul>
 
 			<button class="btn btn-warning" style="width: 100%"
 				data-toggle="collapse" data-target="#demo">Add Participant</button>
@@ -82,24 +93,20 @@
 		</div>
 		<hr class="hr"
 			style="width: 100%; height: 1px; margin: 0.5px; background-color: black; float: left; display: block;">
-		
-		
-		
-
-
-
 	</div>
 	
 	
 	
-<script type="text/javascript">
+<script type="text/javascript" id = "projectChat">
 var url = '/project/getChat'
  
 $(document).ready(function() {
  
 $.ajaxSetup({ cache: false }); 
  
-setInterval(function() {$("#displayarea").load(url); }, 1000);
+setInterval(function() {
+	$("#displayarea").load(url);
+	}, 2000);
  
 });
  

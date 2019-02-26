@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.opm.database.File;
 import com.opm.database.Task;
 import com.opm.database.TaskChat;
@@ -28,6 +27,8 @@ public class TaskDAOJDBCImpl implements TaskDAO {
 
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private TaskFeedDAOJDBCImpl taskFeedJDBC;
 	
 	@Autowired
 	private UserDAOJDBCImpl userJDBC;
@@ -90,6 +91,7 @@ public class TaskDAOJDBCImpl implements TaskDAO {
 	public void changeStatus(int taskId, String status) {
 		String sql ="update task set status = ? where taskid = ?";
 		jdbcTemplate.update(sql, status, taskId);
+		taskFeedJDBC.changeStatusFeed(taskId, status);
 	}
 
 
@@ -104,10 +106,12 @@ public class TaskDAOJDBCImpl implements TaskDAO {
 	public void addParticipant(String username,int taskId, int projectId) {
 		String sql = "insert into usertask(username,taskid,projectId) value(?, ?, ?)";
 		jdbcTemplate.update(sql, username, taskId, projectId);	
+		taskFeedJDBC.addParticipantFeed(taskId, username);
 	}
 
 	@Override
 	public void removeParticipant(String username,int taskId) {
+		taskFeedJDBC.removeParticipantFeed(taskId, username);
 		String sql = "delete from usertask where username = ? and taskid = ?";
 		jdbcTemplate.update(sql, username, taskId);
 	}
@@ -116,6 +120,14 @@ public class TaskDAOJDBCImpl implements TaskDAO {
 	public void addFile(String filename, int taskId) {
 		String sql = "insert into file(filename,taskid) value(?, ?)";
 		jdbcTemplate.update(sql,filename,taskId);
+		taskFeedJDBC.addFileFeed(taskId, filename);
+	}
+	
+	@Override
+	public void deleteFile(String filename, int taskId) {
+		taskFeedJDBC.removeFileFeed(taskId, filename);
+		String sql="delete from file where filename = ? and taskid = ?";
+		jdbcTemplate.update(sql, filename, taskId);
 		
 	}
 
@@ -137,6 +149,7 @@ public class TaskDAOJDBCImpl implements TaskDAO {
 	public void sendMessage(TaskChat tc) {
 		String sql = "insert into taskchat(taskid,username,message) value(?, ?, ?)";
 		jdbcTemplate.update(sql, tc.getTaskId(),tc.getUsername(),tc.getMessage());
+		taskFeedJDBC.chatFeed(tc.getTaskId());
 	}
 
 	@Override
@@ -168,10 +181,14 @@ public class TaskDAOJDBCImpl implements TaskDAO {
 	public void addDependency(int parentTaskId, int childTaskId) {
 		String sql = "insert into taskinterdependency(parenttask,childtask) value (?, ?)";
 		jdbcTemplate.update(sql, parentTaskId,childTaskId);
+		taskFeedJDBC.changeDependencyFeed(childTaskId, "added");
+		taskFeedJDBC.changeDependencyFeed(parentTaskId, "added");
 	}
 
 	@Override
 	public void removeDependency(int parentTaskId, int childTaskId) {
+		taskFeedJDBC.changeDependencyFeed(childTaskId, "deleted");
+		taskFeedJDBC.changeDependencyFeed(parentTaskId, "deleted");
 		String sql = "delete from taskinterdependency where parenttask = ? and childtask = ?";
 		jdbcTemplate.update(sql, parentTaskId,childTaskId);
 	}
@@ -181,6 +198,13 @@ public class TaskDAOJDBCImpl implements TaskDAO {
 		String sql = "select * from task where taskId = ?";
 		Task task = jdbcTemplate.queryForObject(sql, new Object[] {taskId}, new TaskMapper());
 		return task.getMilestoneId();
+	}
+
+	@Override
+	public List<Task> getAllTasks() {
+		String sql = "select * from task";
+		List<Task> task = jdbcTemplate.query(sql, new TaskMapper());
+		return task;
 	}
 }
 

@@ -22,6 +22,9 @@ public interface ProjectsDAO {
 	  //projects developed by the user
 	  public List<Project> getProjectsDeveloped(String username);
 	  
+	  //list all projects
+	  public List<Project> getAllProjects();
+	  
 	  // delete project
 	  public void deleteProject(int projectId);
 	  

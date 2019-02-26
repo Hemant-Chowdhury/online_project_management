@@ -1,6 +1,7 @@
 package com.opm.userController;
 
 import java.security.Principal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,15 +14,25 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.opm.CustomSort.SortByTimeForProjectFeed;
+import com.opm.CustomSort.SortByTimeForTask;
+import com.opm.CustomSort.SortByTimeForTaskFeed;
 import com.opm.database.Milestone;
 import com.opm.database.Project;
+import com.opm.database.ProjectFeed;
 import com.opm.database.Task;
+import com.opm.database.TaskFeed;
+import com.opm.html.Methods;
 import com.opm.service.HomeDAOJDBCImpl;
 import com.opm.service.MilestoneDAOJDBCImpl;
 import com.opm.service.ProjectDAOJDBCImpl;
+import com.opm.service.ProjectFeedDAOJDBCImpl;
 import com.opm.service.TaskDAOJDBCImpl;
+import com.opm.service.TaskFeedDAOJDBCImpl;
+import com.opm.service.UserDAOJDBCImpl;
 
 @Controller
 public class HomeController {
@@ -34,6 +45,10 @@ public class HomeController {
 	private  MilestoneDAOJDBCImpl milestoneJDBC;
 	@Autowired
 	private ProjectDAOJDBCImpl projectJDBC;
+	@Autowired
+	private ProjectFeedDAOJDBCImpl projectFeedJDBC;
+	@Autowired
+	private TaskFeedDAOJDBCImpl taskFeedJDBC;
 	
 	
 	@RequestMapping(value="/",method=RequestMethod.GET)
@@ -67,13 +82,23 @@ public class HomeController {
 				presentTask.add(t);
 			}
 		}
-		
+		List<ProjectFeed> projectFeed = new ArrayList<ProjectFeed>();
+		List<TaskFeed> taskFeed = new ArrayList<TaskFeed>();
+		for(Project p :project) {
+			projectFeed.addAll(projectFeedJDBC.getProjectFeeds(p.getProjectId()));
+		}
+		for(Task t: task) {
+			taskFeed.addAll(taskFeedJDBC.getTaskFeeds(t.getTaskId()));
+		}
+		projectFeed.sort(new SortByTimeForProjectFeed());
+		taskFeed.sort(new SortByTimeForTaskFeed());
 		model.addAttribute("project",project);
 		model.addAttribute("presentTask", presentTask);
 		model.addAttribute("pastTask", pastTask);
 		model.addAttribute("futureTask", futureTask);
 		model.addAttribute("completedTask",completedTask);
-	
+		model.addAttribute("projectFeed",projectFeed);
+		model.addAttribute("taskFeed", taskFeed);
 		return "home";
 	}
 	
@@ -94,6 +119,5 @@ public class HomeController {
 		session.setAttribute("taskId", taskId);
 		return "redirect:/task";
 	}
-	
 	
 }

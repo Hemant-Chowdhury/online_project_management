@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,6 @@ import com.opm.service.UserDAOJDBCImpl;
 
 
 @Controller
-@RequestMapping(value="/user")
 public class UserController {
 	
 	@Autowired
@@ -65,7 +65,7 @@ public class UserController {
 		{
 			userJDBC.updateImage(username,"/resources/images/default.png");
 		}
-		return "redirect:/user/profile";
+		return "redirect:/profile";
 	}
 	
 	
@@ -73,7 +73,7 @@ public class UserController {
 	public String updateProfile(ModelMap model,@Valid User user,BindingResult result){
 		if(result.hasErrors())
 		{
-			return "redirect:/user/profile";
+			return "redirect:/profile";
 		}
 		userJDBC.updateProfile(getLoggedInUserName(), user.getName(), user.getEmail(), user.getCompany());
 		model.addAttribute("message",Methods.jsAlert("\"Profile Updated\""));
@@ -86,5 +86,12 @@ public class UserController {
 		String message = userJDBC.updatePassword(getLoggedInUserName(), oldPassword, newPassword);
 		model.addAttribute("message",Methods.jsAlert("\""+message+"\""));
 		return profilePage(model);
+	}
+	
+	@RequestMapping("/profile/deactivate")
+	public String deactivate(ModelMap model,HttpSession session) {
+		userJDBC.delete(getLoggedInUserName());
+		session.removeAttribute("username");
+		return "redirect:/login?logout";
 	}
 }

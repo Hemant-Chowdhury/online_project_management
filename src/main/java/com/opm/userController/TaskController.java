@@ -44,6 +44,8 @@ public class TaskController {
 	@Autowired
 	private UserDAOJDBCImpl userJDBC;
 	
+	private String path="C:\\Users\\HEMANT\\Documents\\OnlineProjectManagement\\src\\main\\webapp\\resources\\files\\";
+	
 	private String getLoggedInUserName() {
 		Object principal = SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
@@ -203,14 +205,13 @@ public class TaskController {
 	
 	@RequestMapping(value="/task/file", method=RequestMethod.GET)
 	private String showFile(ModelMap model,@RequestParam(value="filename") String filename) throws IOException {
-		String fileName = "C:\\Users\\HEMANT\\Documents\\OnlineProjectManagement\\src\\main\\webapp\\resources\\files\\"+getSessionTaskId()+"\\"+filename;
+		String fileName = path+getSessionTaskId()+"\\"+filename;
 	    java.io.File file = new java.io.File(fileName);
 	    FileReader fr = new FileReader(file); 
-	      char [] a = new char[200];
+	      char [] a = new char[100000];
 	      fr.read(a);   // reads the content to the array
 	      fr.close();
 	      String content = String.valueOf(a);
-	      System.out.println(content);
 	      model.addAttribute("filename",filename);
 	      model.addAttribute("content",content);
 		return "file";
@@ -218,14 +219,21 @@ public class TaskController {
 	
 	@RequestMapping(value="/task/file", method=RequestMethod.POST)
 	private String editFile(ModelMap model,@RequestParam(value="filename") String filename, @RequestParam(value="content") String content) throws IOException {
-		String fileName = "C:\\Users\\HEMANT\\Documents\\OnlineProjectManagement\\src\\main\\webapp\\resources\\files\\"+getSessionTaskId()+"\\"+filename;
+		String fileName = path+getSessionTaskId()+"\\"+filename;
 	    java.io.File file = new java.io.File(fileName);
 	    FileWriter fw = new FileWriter(file); 
 	    fw.write(content);
+	    fw.close();
 		return "redirect:/task";
 	}
-	
-	
-	
-
+	@RequestMapping(value="task/deleteFile")
+	private String deleteFile(ModelMap model,@RequestParam(value="filename") String filename) {
+		taskJDBC.deleteFile(filename, getSessionTaskId());
+		java.io.File file = new java.io.File(path+getSessionTaskId()+"\\"+filename); 
+		file.delete();
+		file = new java.io.File(path+getSessionTaskId());
+		if(file.list().length==0)
+			file.delete();
+		return "redirect:/task";
+	}
 }

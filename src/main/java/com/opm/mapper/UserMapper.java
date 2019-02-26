@@ -18,6 +18,7 @@ public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 	user.setEmail(rs.getString("email"));
 	user.setImage(rs.getString("image"));
 	user.setCompany(rs.getString("company"));
+	user.setLastChecked(rs.getTimestamp("lastChecked"));
 	return user;
 }
 }

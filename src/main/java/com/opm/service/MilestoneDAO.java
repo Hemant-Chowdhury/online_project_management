@@ -30,4 +30,7 @@ public interface MilestoneDAO {
 	  
 	  // remove Task
 	  public void removeTask(int taskId);
+	  
+	  //get ProjectId
+	  public int getProjectId(int milestoneId);
 }

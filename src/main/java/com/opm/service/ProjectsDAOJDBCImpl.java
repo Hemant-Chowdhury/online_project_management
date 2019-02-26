@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.opm.database.Project;
@@ -15,6 +16,9 @@ import com.opm.mapper.UserProjectMapper;
 
 public class ProjectsDAOJDBCImpl implements ProjectsDAO {
 
+	@Autowired
+	private ProjectFeedDAOJDBCImpl projectFeedJDBC;
+	
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 	
@@ -28,6 +32,9 @@ public class ProjectsDAOJDBCImpl implements ProjectsDAO {
 	public void addProject(Project project) {
 		String sql="insert into project (projectname,owner,description) value (?, ?, ?)";
 		jdbcTemplate.update(sql, project.getProjectName(),project.getOwner(),project.getDescription());
+		int projectId =jdbcTemplate.queryForObject( "select MAX(projectId) from project", Integer.class );
+		System.out.println(projectId);
+		projectFeedJDBC.createProjectFeed(projectId);
 	}
 
 	@Override
@@ -65,6 +72,13 @@ public class ProjectsDAOJDBCImpl implements ProjectsDAO {
 	public void deleteProject(int projectId) {
 		String sql = "delete from project where projectid = ?";
 		jdbcTemplate.update(sql, projectId);
+	}
+
+	@Override
+	public List<Project> getAllProjects() {
+		String sql = "select * from project";
+		List<Project> project = jdbcTemplate.query(sql,new ProjectMapper());
+		return project;
 	}
 
 	

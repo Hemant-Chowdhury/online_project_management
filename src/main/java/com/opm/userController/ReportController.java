@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -50,7 +49,6 @@ public class ReportController {
 		return taskId;
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/report")
 	private String mainPage(ModelMap model) {
 		
@@ -78,7 +76,8 @@ public class ReportController {
 		System.out.println("printing view");
 		Methods meth = new Methods();
 		String view = meth.DisplayReport(task);
-		return view;
+		model.addAttribute("view", view);
+		return "report";
 	}
 }
 

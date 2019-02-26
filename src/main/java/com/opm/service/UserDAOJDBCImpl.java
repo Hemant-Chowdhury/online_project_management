@@ -1,5 +1,6 @@
 package com.opm.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import javax.sql.DataSource;
 
@@ -87,5 +88,21 @@ public class UserDAOJDBCImpl implements UserDAO {
 		System.out.println(image);
 		String sql = "update user set image = ? where username = ?";
 		jdbcTemplate.update(sql,image,username);
+	}
+
+
+	@Override
+	public Timestamp getLastChecked(String username) {
+		String sql = "select * from user where username = ? ";
+		User user = jdbcTemplate.queryForObject(sql, new Object[] {username},new UserMapper());
+		return user.getLastChecked();
+	}
+
+
+	@Override
+	public void setLastChecked(String username, Timestamp lastChecked) {
+		String sql = "update user set lastchecked = ? where username =?";
+		jdbcTemplate.update(sql,lastChecked,username);
+		System.out.println("updated last checked"+ lastChecked);
 	}
 }

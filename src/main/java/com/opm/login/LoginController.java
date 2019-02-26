@@ -77,6 +77,11 @@ public class LoginController {
 		return "login";
 	}
 	
+	@RequestMapping("/guest/login")
+	private String guestLogin() {
+		return "redirect:/guest/home";
+	}
+	
 	@RequestMapping(value="/login",params="logout")
     public String logout(ModelMap model,HttpSession session)
     {

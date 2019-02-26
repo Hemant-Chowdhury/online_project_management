@@ -4,7 +4,7 @@
 <%@ include file="common/taskNav.jsp"%>
 
 <div
-	style="width: 90%; float: left; padding: 10px; height: 800px; background-color: white; height: 100%;">
+	style="width: 90%; float: left; padding: 10px; height: 100%; background-color: white;">
 	<div style="width: 100%; float: left;">
 
 		<div class="dropdown"
@@ -157,8 +157,7 @@
 
 
 
-			<script type="text/javascript">
-				var url = '/task/getChat'
+			<script type="text/javascript" >
 
 				$(document).ready(function() {
 
@@ -167,8 +166,8 @@
 					});
 
 					setInterval(function() {
-						$("#displayarea").load(url);
-					}, 1000);
+						$("#displayarea").load('/task/getChat');
+					}, 2000);
 
 				});
 			</script>
@@ -242,8 +241,14 @@
 			style="height: auto; width: 100%; padding: 0px; float: left; overflow-y: auto;">
 			<ul>
 				<c:forEach var="file" items="${files}">
-					<li class="list-group-item" style="margin: 2px; height: 35px;">${file.getFileName()}<a
-						href="/task/file?filename=${file.getFileName()}" style="float: right; padding: 0px; margin-top: 0px;"><button
+					<li class="list-group-item" style="margin: 2px; height: 35px;">${file.getFileName()}
+					<a href="/task/deleteFile?filename=${file.getFileName()}" style="float: right; padding: 0px; margin-top: 0px;"><button
+								type="button" class="btn btn-danger">
+								<span class="glyphicon glyphicon-trash"
+									style="float: left;"></span>
+							</button></a>
+					
+					<a href="/task/file?filename=${file.getFileName()}" style="float: right; padding: 0px; margin-top: 0px;margin-right:10px;"><button
 								type="button" class="btn btn-success">
 								<span class="glyphicon glyphicon-folder-open"
 									style="float: left;"></span>

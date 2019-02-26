@@ -37,6 +37,8 @@ public interface TaskDAO {
 	  //add file
 	  public void addFile(String filename, int taskId);
 	  
+	  //remove file
+	  public void deleteFile(String filename,int taskId);
 	  //fetch files
 	  public List<File> getFiles(int taskId);
 	  
@@ -60,5 +62,8 @@ public interface TaskDAO {
 	  
 	  //get Milestoneid
 	  public int getMilestoneId(int taskId);
+	  
+	  //get all tasks
+	  public List<Task> getAllTasks();
 	  
 }

@@ -23,15 +23,17 @@ import com.opm.database.Project;
 import com.opm.database.User;
 import com.opm.html.Methods;
 import com.opm.jasonView.Views;
+import com.opm.service.ProjectFeedDAOJDBCImpl;
 import com.opm.service.ProjectsDAOJDBCImpl;
 import com.opm.service.UserDAOJDBCImpl;
 
 @Controller
-@RequestMapping(value="/user/projects")
+@RequestMapping(value="/projects")
 public class ProjectsController {
 
 	@Autowired
 	private ProjectsDAOJDBCImpl projectsJDBC;
+	
 
 	private String getLoggedInUserName() {
 		Object principal = SecurityContextHolder.getContext()
@@ -43,16 +45,6 @@ public class ProjectsController {
 		return principal.toString();
 	}
 
-	private String projectView(List<Project> project) {
-		String view="";
-		int i=0;
-		for(Project p : project) {
-			System.out.println(p.getProjectName()+" "+p.getTimestamp());
-			view+=Methods.getProjectPanel(p,i);
-			i++;
-		}
-		return view;
-	}
 
 	//Main user profile page
 	@RequestMapping(value="")
@@ -61,12 +53,10 @@ public class ProjectsController {
 		List<Project> project1 = projectsJDBC.getProjectsOwned(getLoggedInUserName());
 		List<Project> project2 = projectsJDBC.getProjectsManaged(getLoggedInUserName());
 		List<Project> project3 = projectsJDBC.getProjectsDeveloped(getLoggedInUserName());
-		String view1 = projectView(project1);
-		String view2 = projectView(project2);
-		String view3 = projectView(project3);
-		model.addAttribute("view1",view1);
-		model.addAttribute("view2",view2);
-		model.addAttribute("view3",view3);
+
+		model.addAttribute("owned", project1);
+		model.addAttribute("managed",project2);
+		model.addAttribute("developed", project3);
 		return "projects";
 	}
 
@@ -75,11 +65,11 @@ public class ProjectsController {
 	private String addProject(ModelMap model,@Valid Project project,BindingResult result) {
 		if(result.hasErrors())
 		{
-			return "redirect:/user/projects";
+			return "redirect:/projects";
 		}
 		project.setOwner(getLoggedInUserName());
 		projectsJDBC.addProject(project);
-		return "redirect:/user/projects";
+		return "redirect:/projects";
 	}
 
 	@RequestMapping(value="/delete")
@@ -87,7 +77,7 @@ public class ProjectsController {
 
 		System.out.println(projectId+" Project deleted");
 		projectsJDBC.deleteProject(projectId);
-		return "redirect:/user/projects";
+		return "redirect:/projects";
 	}
 	
 	@RequestMapping(value="/moreInfo")

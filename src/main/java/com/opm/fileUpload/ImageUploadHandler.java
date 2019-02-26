@@ -45,7 +45,7 @@ public class ImageUploadHandler extends HttpServlet {
                                  "Sorry this Servlet only handles file upload request");
         }
         System.out.println("Image uploaded");
-        request.getRequestDispatcher("/user/profile?update=image").forward(request, response);
+        request.getRequestDispatcher("/profile?update=image").forward(request, response);
       
     }
    

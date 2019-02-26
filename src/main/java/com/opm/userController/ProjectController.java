@@ -62,23 +62,11 @@ public class ProjectController {
 		return view;
 	}
 	
-	private String getParticipantList(List<User> user)
-	{
-		String view="<ul>";
-		for(User u: user) {
-			view+=Methods.listParticipant(u);
-		}
-		view+="</ul>";
-		return view;
-	}
-	
 	@RequestMapping(value="/project")
 	private String projectPage(ModelMap model)
 	{
 		List<User> participants = projectJDBC.getParticipants(getSessionProjectId());
-		String participant = getParticipantList(participants);
-		model.addAttribute("listParticipant",participant);
-		
+		model.addAttribute("participants",participants);
 		Project project = projectJDBC.getProject(getSessionProjectId());
 		model.addAttribute("project",project);
 		
@@ -97,8 +85,8 @@ public class ProjectController {
 		return "redirect:/project?projectId="+session.getAttribute("projectId");
 	}
 	
-	@RequestMapping(value="/project/deleteParticipant")
-	private String deleteParticipant(ModelMap model,@RequestParam(value="username") String username) {
+	@RequestMapping(value="/project/removeParticipant")
+	private String removeParticipant(ModelMap model,@RequestParam(value="username") String username) {
 		projectJDBC.removeParticipant(username, getSessionProjectId());
 		return "redirect:/project";
 	}

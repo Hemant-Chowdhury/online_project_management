@@ -22,6 +22,8 @@ public class ProjectDAOJDBCImpl implements ProjectDAO {
 
 	@Autowired
 	private UserDAOJDBCImpl userJDBC;
+	@Autowired
+	private ProjectFeedDAOJDBCImpl projectFeedJDBC;
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 	
@@ -45,6 +47,7 @@ public class ProjectDAOJDBCImpl implements ProjectDAO {
 		for(UserProject up: userProject)
 		{
 			User u = userJDBC.getUser(up.getUsername());
+			u.setCompany(up.getType()); 	//Temporary setter call to specify type (Bad Practice!!)
 			user.add(u);	
 		}
 		return user;
@@ -60,14 +63,17 @@ public class ProjectDAOJDBCImpl implements ProjectDAO {
 	public void sendMessage(ProjectChat pc) {
 		String sql="insert into projectchat (projectid,username,message) value (?,?,?)";
 		jdbcTemplate.update(sql,pc.getProjectId(),pc.getUsername(),pc.getMessage());
+		projectFeedJDBC.chatFeed(pc.getProjectId());
 	}
 	@Override
 	public void addParticipant(UserProject up) {
 		String sql = "insert into userproject (username,projectid,type) value (?,?,?)";
 		jdbcTemplate.update(sql, up.getUsername(),up.getProjectId(),up.getType());
+		projectFeedJDBC.addParticipantFeed(up.getProjectId(), up.getUsername());
 	}
 	@Override
 	public void removeParticipant(String username, int projectId) {
+		projectFeedJDBC.removeParticipantFeed(projectId, username);
 		String sql = "delete from userproject where username = ? and projectid = ?";
 		jdbcTemplate.update(sql,username,projectId);
 	}

@@ -1,43 +1,19 @@
+<%@ include file="common/header.jsp"%>
+<title>Dashboard</title>
+<%@ include file="common/nav.jsp"%>
+<%@ include file="common/projectNav.jsp"%>
 
-<html>
-<head>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
- </head>
- <body>
-  <script type="text/javascript">
-    google.charts.load('current', {'packages':['gantt']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function daysToMilliseconds(days) {
-      return days * 24 * 60 * 60 * 1000;
-    }
-
-    function drawChart() {
-	
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Task ID');
-      data.addColumn('string', 'Task Name');
-      data.addColumn('date', 'Start Date');
-      data.addColumn('date', 'End Date');
-      data.addColumn('number', 'Duration');
-      data.addColumn('number', 'Percent Complete');
-      data.addColumn('string', 'Dependencies');
-
-      data.addRows([
-    	  
-    	  <c:forEach items = "${task}" var="ta">
-          [${ta.getTaskId()}, ${ta.getTaskName()}, ${ta.getTaskStartDate()},${ta.getTaskEndDate()},null,100,null],
-    	</c:forEach>
-       
-      ]);
-
-      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
-
-      chart.draw(data, options);
-    }
-  </script>
-  
- 
-  <div id="chart_div"></div>
-</body>
-</html>
+<div
+	style="width: 85%; float: left; padding: 10px; height: 100%; background-color: white;">
+	<div style="width: 100%; float: left;">
+			<h1 class="heading">Gantt Chart</h1>
+		
+		${view}
+		<div style="height: auto; width: 100%; padding: 0px; float: left;overflow-x: auto;">
+	 	<div id="chart_div"></div>
+	 	<br/>
+	 	<div id="chart_div"></div>
+	 	</div>
+</div>			
+</div>
+<%@ include file="common/footer.jsp"%>

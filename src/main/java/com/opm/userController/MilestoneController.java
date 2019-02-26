@@ -39,7 +39,6 @@ public class MilestoneController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 	
-	
 	private int getSessionProjectId()
 	{
 		int projectId=(int)RequestContextHolder.currentRequestAttributes().getAttribute("projectId", RequestAttributes.SCOPE_SESSION);

@@ -75,7 +75,7 @@ style="background-color: rgba(255, 255, 255, 0.76);border-radius: 8px;position: 
 		</form>
 
 		</form>
-		<form action="/guest-login">
+		<form action="/guest/login">
 			<button type="submit" class="btn btn-default"
 				style="border: 0px; height: 36px; display: inline-block; border-radius: 4px; -webkit-font-smoothing: antialiased; padding: 0px 18px; font-size: 15px; font-weight: bold; outline: none; box-shadow: none; cursor: pointer; margin-top: 10px; vertical-align: middle; text-align: center; background-color: rgb(100, 189, 22); color: rgb(255, 255, 255); width: 60%;">Login
 				as Guest</button>
