@@ -4,8 +4,11 @@ This is a complete, web-based enterprise project management application that hel
 
 
 The application provides platform to create user accounts where the user can create several projects. Each project has a list of participants where some of them has a role of manager. Each participant is a registered user. 
+
 Each projects has a bunch of milestones and each milestone has some milestone specific tasks to complete. 
+
 Each task has a start and end time with some task participants who must be a part of the project. Task participants can discuss and share resources to coordinate and complete the task.
+
 Each task can have some task dependency for example a task of initial programming is dependent on project planning and resource allocation; and a task of testing is dependent on initial programming.
 
 ### Features
