@@ -29,7 +29,10 @@ Each task can have some task dependency for example a task of initial programmin
 ![alt text](https://github.com/Hemant-Chowdhury/online_project_management/blob/resource/readme_resources/OnlineProjectManagementDB.png)
 ![alt text](https://github.com/Hemant-Chowdhury/online_project_management/blob/resource/readme_resources/index.png)
 
-### Scope of improvements
-- A bigger profile for an enterprise where a user can list all the participants of the enterprise and create new teams.
+## DEMO
+[![DEMO](https://res.cloudinary.com/marcomontalbano/image/upload/v1587298667/video_to_markdown/images/youtube--xiQYd_aza90-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/xiQYd_aza90 "DEMO")
+
+# Scope of improvements
+- Create a bigger profile for an enterprise where a user can list all the participants of the enterprise and create new teams.
 - Set permissions so that a participant can excercise delete and update operations for the task there are permitted to do so.
 - Enhance security related aspects like storing encrypted elements in the database.
