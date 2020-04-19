@@ -36,3 +36,4 @@ Each task can have some task dependency for example a task of initial programmin
 - Create a bigger profile for an enterprise where a user can list all the participants of the enterprise and create new teams.
 - Set permissions so that a participant can excercise delete and update operations for the task there are permitted to do so.
 - Enhance security related aspects like storing encrypted elements in the database.
+- And many more..
