@@ -25,6 +25,10 @@ Each task can have some task dependency for example a task of initial programmin
 - HTML
 - JSP
 
+## Database connections
+![alt text](https://github.com/Hemant-Chowdhury/online_project_management/blob/resource/readme_resources/OnlineProjectManagementDB.png)
+![alt text](https://github.com/Hemant-Chowdhury/online_project_management/blob/resource/readme_resources/index.png)
+
 ### Scope of improvements
 - A bigger profile for an enterprise where a user can list all the participants of the enterprise and create new teams.
 - Set permissions so that a participant can excercise delete and update operations for the task there are permitted to do so.
